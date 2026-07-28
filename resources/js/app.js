@@ -1,4 +1,5 @@
 import './bootstrap';
+import '@fontsource-variable/inter/wght.css';
 import {
     createIcons,
     ArrowRight,
