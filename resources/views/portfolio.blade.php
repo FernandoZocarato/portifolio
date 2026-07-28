@@ -93,7 +93,7 @@
                         <div class="mb-2 flex flex-wrap items-center gap-2"><h3 class="text-lg font-semibold">{{ $project->title }}</h3>@if($project->is_demo)<span class="rounded-md border border-border px-2 py-0.5 text-[10px] uppercase tracking-wider text-muted-foreground">Projeto demonstrativo</span>@endif</div>
                         <p class="text-sm text-muted-foreground">{{ $project->summary }}</p>
                         <ul class="mt-4 flex flex-wrap gap-1.5">@foreach($project->technologies as $technology)<li class="lov-tag">{{ $technology }}</li>@endforeach</ul>
-                        <div class="mt-5 flex gap-2 pt-2"><span class="lov-button lov-button-outline h-9 px-3 opacity-50"><i data-lucide="external-link" class="h-3.5 w-3.5"></i>Demo — Em breve</span><span class="lov-button lov-button-ghost h-9 px-3 opacity-50"><i data-lucide="code-2" class="h-3.5 w-3.5"></i>Código — Em breve</span></div>
+                        <div class="mt-5 flex flex-nowrap items-center gap-1.5 pt-2"><span class="lov-button lov-button-outline h-9 shrink-0 gap-1.5 px-2.5 text-xs opacity-50"><i data-lucide="external-link" class="h-3.5 w-3.5"></i>Demo — Em breve</span><span class="lov-button lov-button-ghost h-9 shrink-0 gap-1.5 px-2.5 text-xs opacity-50"><i data-lucide="code-2" class="h-3.5 w-3.5"></i>Código — Em breve</span></div>
                     </div>
                 </article>
             @endforeach
