@@ -4,16 +4,16 @@
     "description": "Portfólio pessoal de Fernando Zocarato em Laravel e Blade.",
     "license": "MIT",
     "require": {
-        "php": "^8.2",
-        "laravel/framework": "^11.31",
+        "php": "^8.1",
+        "laravel/framework": "^10.48",
         "laravel/tinker": "^2.9"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
-        "laravel/pint": "^1.18",
+        "laravel/pint": "^1.13",
         "mockery/mockery": "^1.6",
-        "nunomaduro/collision": "^8.5",
-        "phpunit/phpunit": "^11.1"
+        "nunomaduro/collision": "^7.10",
+        "phpunit/phpunit": "^10.5"
     },
     "autoload": {
         "psr-4": {
