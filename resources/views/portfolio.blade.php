@@ -20,8 +20,8 @@
             </ul>
         </nav>
         <div class="flex items-center gap-1">
-            <button id="theme-toggle" class="lov-icon-button" type="button" aria-label="Alternar tema"><span class="dark:hidden">☾</span><span class="hidden dark:inline">☀</span></button>
-            <button id="menu-toggle" class="lov-icon-button md:hidden" type="button" aria-label="Abrir menu" aria-expanded="false">☰</button>
+            <button id="theme-toggle" class="lov-icon-button" type="button" aria-label="Alternar tema"><i data-lucide="moon" class="h-5 w-5 dark:hidden"></i><i data-lucide="sun" class="hidden h-5 w-5 dark:block"></i></button>
+            <button id="menu-toggle" class="lov-icon-button md:hidden" type="button" aria-label="Abrir menu" aria-expanded="false"><i id="menu-icon" data-lucide="menu" class="h-5 w-5"></i><i id="close-icon" data-lucide="x" class="hidden h-5 w-5"></i></button>
         </div>
     </div>
     <nav id="mobile-menu" class="hidden border-t border-border bg-background md:hidden" aria-label="Navegação móvel">
@@ -49,9 +49,9 @@
                 <p class="mt-4 max-w-xl text-lg text-muted-foreground sm:text-xl">{{ $profile->tagline }}</p>
                 <p class="mt-4 max-w-xl text-sm text-muted-foreground sm:text-base">{{ $profile->about }}</p>
                 <div class="mt-8 flex flex-wrap gap-3">
-                    <a class="lov-button lov-button-lg lov-button-primary" href="#projetos">Ver projetos <span aria-hidden="true">→</span></a>
-                    <a class="lov-button lov-button-lg lov-button-outline" href="#contato">✉ <span>Entrar em contato</span></a>
-                    <span class="lov-button lov-button-lg lov-button-ghost opacity-50" aria-disabled="true">⇩ <span>Currículo em breve</span></span>
+                    <a class="lov-button lov-button-lg lov-button-primary" href="#projetos">Ver projetos <i data-lucide="arrow-right" class="h-4 w-4"></i></a>
+                    <a class="lov-button lov-button-lg lov-button-outline" href="#contato"><i data-lucide="mail" class="h-4 w-4"></i><span>Entrar em contato</span></a>
+                    <span class="lov-button lov-button-lg lov-button-ghost opacity-50" aria-disabled="true"><i data-lucide="download" class="h-4 w-4"></i><span>Currículo em breve</span></span>
                 </div>
             </div>
             <div class="relative mx-auto hidden aspect-square w-full max-w-sm md:block" aria-hidden="true">
@@ -93,7 +93,7 @@
                         <div class="mb-2 flex flex-wrap items-center gap-2"><h3 class="text-lg font-semibold">{{ $project->title }}</h3>@if($project->is_demo)<span class="rounded-md border border-border px-2 py-0.5 text-[10px] uppercase tracking-wider text-muted-foreground">Projeto demonstrativo</span>@endif</div>
                         <p class="text-sm text-muted-foreground">{{ $project->summary }}</p>
                         <ul class="mt-4 flex flex-wrap gap-1.5">@foreach($project->technologies as $technology)<li class="lov-tag">{{ $technology }}</li>@endforeach</ul>
-                        <div class="mt-5 flex gap-2 pt-2"><span class="lov-button lov-button-outline h-9 px-3 opacity-50">↗ Demo — Em breve</span><span class="lov-button lov-button-ghost h-9 px-3 opacity-50">&lt;/&gt; Código — Em breve</span></div>
+                        <div class="mt-5 flex gap-2 pt-2"><span class="lov-button lov-button-outline h-9 px-3 opacity-50"><i data-lucide="external-link" class="h-3.5 w-3.5"></i>Demo — Em breve</span><span class="lov-button lov-button-ghost h-9 px-3 opacity-50"><i data-lucide="code-2" class="h-3.5 w-3.5"></i>Código — Em breve</span></div>
                     </div>
                 </article>
             @endforeach
@@ -105,7 +105,7 @@
         @forelse($experiences as $experience)
             <article class="relative mb-8 border-l border-border pl-6"><p class="text-xs uppercase tracking-wider text-muted-foreground">{{ $experience->start_date->format('m/Y') }} — {{ $experience->end_date?->format('m/Y') ?? 'Atual' }}</p><h3 class="mt-1 text-lg font-semibold">{{ $experience->role }} · <span class="text-primary">{{ $experience->company }}</span></h3><p class="mt-2 text-sm text-muted-foreground">{{ $experience->description }}</p></article>
         @empty
-            <div class="rounded-2xl border border-dashed border-border bg-card p-10 text-center"><div class="mx-auto grid h-12 w-12 place-items-center rounded-full bg-secondary text-muted-foreground">✦</div><h3 class="mt-4 text-lg font-semibold">Sua história vai aqui</h3><p class="mx-auto mt-2 max-w-md text-sm text-muted-foreground">Adicione aqui sua trajetória profissional — cargos, empresas, períodos e principais entregas. Este texto é editável.</p></div>
+            <div class="rounded-2xl border border-dashed border-border bg-card p-10 text-center"><div class="mx-auto grid h-12 w-12 place-items-center rounded-full bg-secondary text-muted-foreground"><i data-lucide="sparkles" class="h-5 w-5"></i></div><h3 class="mt-4 text-lg font-semibold">Sua história vai aqui</h3><p class="mx-auto mt-2 max-w-md text-sm text-muted-foreground">Adicione aqui sua trajetória profissional — cargos, empresas, períodos e principais entregas. Este texto é editável.</p></div>
         @endforelse
     </div></section>
 
@@ -113,8 +113,8 @@
         <div class="section-head"><p class="section-eyebrow">Contato</p><h2 class="section-title">Vamos conversar</h2><p class="section-description">Envie uma mensagem ou use os canais abaixo. Espaços editáveis — nenhum link é inventado.</p></div>
         <div class="grid gap-8 md:grid-cols-[1fr_1.2fr]">
             <aside class="space-y-3">
-                @foreach([['✉','E-mail',$profile->email ?: 'Adicione seu e-mail'],['⌘','GitHub',$profile->github ?: 'Adicione seu perfil'],['in','LinkedIn',$profile->linkedin ?: 'Adicione seu perfil']] as [$icon,$label,$value])
-                    <div class="flex items-center gap-3 rounded-xl border border-border bg-card p-4 text-sm shadow-sm"><span class="grid h-9 w-9 place-items-center rounded-lg bg-secondary">{{ $icon }}</span><span><span class="block text-xs uppercase tracking-wider text-muted-foreground">{{ $label }}</span><span class="block text-foreground">{{ $value }}</span></span></div>
+                @foreach([['mail','E-mail',$profile->email ?: 'Adicione seu e-mail'],['code-2','GitHub',$profile->github ?: 'Adicione seu perfil'],['briefcase-business','LinkedIn',$profile->linkedin ?: 'Adicione seu perfil']] as [$icon,$label,$value])
+                    <div class="flex items-center gap-3 rounded-xl border border-border bg-card p-4 text-sm shadow-sm"><span class="grid h-9 w-9 place-items-center rounded-lg bg-secondary"><i data-lucide="{{ $icon }}" class="h-4 w-4"></i></span><span><span class="block text-xs uppercase tracking-wider text-muted-foreground">{{ $label }}</span><span class="block text-foreground">{{ $value }}</span></span></div>
                 @endforeach
             </aside>
             <form action="{{ route('contact.store') }}" method="post" class="lov-card p-6">@csrf
@@ -124,7 +124,7 @@
                 <label class="mt-4 block text-sm">Assunto<input class="lov-input" name="subject" value="{{ old('subject') }}" required></label>
                 <label class="mt-4 block text-sm">Mensagem<textarea class="lov-input min-h-32 resize-y" name="message" required>{{ old('message') }}</textarea></label>
                 @if($errors->any())<p class="mt-3 text-xs text-destructive">Revise os campos e tente novamente.</p>@endif
-                <div class="mt-6 flex items-center justify-between gap-4"><p class="text-xs text-muted-foreground">A mensagem será registrada no sistema.</p><button class="lov-button lov-button-primary" type="submit">➤ Enviar mensagem</button></div>
+                <div class="mt-6 flex items-center justify-between gap-4"><p class="text-xs text-muted-foreground">A mensagem será registrada no sistema.</p><button class="lov-button lov-button-primary" type="submit"><i data-lucide="send" class="h-4 w-4"></i>Enviar mensagem</button></div>
             </form>
         </div>
     </div></section>
