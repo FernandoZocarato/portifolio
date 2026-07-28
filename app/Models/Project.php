@@ -11,8 +11,8 @@ class Project extends Model
         'image_url', 'is_demo', 'sort_order',
     ];
 
-    protected function casts(): array
-    {
-        return ['technologies' => 'array', 'is_demo' => 'boolean'];
-    }
+    protected $casts = [
+        'technologies' => 'array',
+        'is_demo' => 'boolean',
+    ];
 }
