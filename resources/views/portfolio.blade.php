@@ -2,167 +2,133 @@
 
 @section('content')
 @php
-    $profile ??= (object) [
-        'name' => 'Fernando Zocarato',
-        'tagline' => 'Transformando ideias em experiências digitais claras e funcionais',
-        'about' => 'Este conteúdo pode ser personalizado com sua trajetória profissional.',
-        'email' => null, 'github' => null, 'linkedin' => null,
-    ];
+    $profile ??= (object) ['name'=>'Fernando Zocarato','tagline'=>'Transformando ideias em experiências digitais claras e funcionais','about'=>'Este conteúdo pode ser personalizado com sua trajetória profissional.','email'=>null,'github'=>null,'linkedin'=>null];
+    $nav = ['inicio'=>'Início','sobre'=>'Sobre','tecnologias'=>'Tecnologias','projetos'=>'Projetos','experiencia'=>'Experiência','contato'=>'Contato'];
 @endphp
 
-<header id="header" class="fixed inset-x-0 top-0 z-50 border-b border-transparent bg-slate-50/80 backdrop-blur-xl transition dark:bg-[#121b22]/80">
-    <nav class="mx-auto flex h-18 max-w-6xl items-center justify-between px-5" aria-label="Navegação principal">
-        <a href="#inicio" class="flex items-center gap-3 font-semibold tracking-tight">
-            <span class="grid h-10 w-10 place-items-center rounded-xl bg-[#183849] text-sm font-bold text-white">FZ</span>
-            <span>Fernando Zocarato</span>
+<header id="header" class="sticky top-0 z-50 w-full bg-transparent transition-all">
+    <div class="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
+        <a href="#inicio" class="flex items-center gap-2 rounded-md text-sm font-semibold tracking-tight text-foreground" aria-label="Ir para o início">
+            <span class="grid h-8 w-8 place-items-center rounded-md bg-primary text-xs font-bold text-primary-foreground">FZ</span>
+            <span class="hidden sm:inline">Fernando Zocarato</span>
         </a>
-        <div class="hidden items-center gap-6 md:flex">
-            @foreach(['inicio'=>'Início','sobre'=>'Sobre','tecnologias'=>'Tecnologias','projetos'=>'Projetos','experiencia'=>'Experiência','contato'=>'Contato'] as $id => $label)
-                <a class="nav-link text-sm text-slate-600 transition hover:text-teal-700 dark:text-slate-300 dark:hover:text-teal-300" href="#{{ $id }}">{{ $label }}</a>
-            @endforeach
+        <nav class="hidden md:block" aria-label="Navegação principal">
+            <ul class="flex items-center gap-1">
+                @foreach($nav as $id=>$label)
+                    <li><a class="nav-link block rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground" href="#{{ $id }}">{{ $label }}</a></li>
+                @endforeach
+            </ul>
+        </nav>
+        <div class="flex items-center gap-1">
+            <button id="theme-toggle" class="lov-icon-button" type="button" aria-label="Alternar tema"><span class="dark:hidden">☾</span><span class="hidden dark:inline">☀</span></button>
+            <button id="menu-toggle" class="lov-icon-button md:hidden" type="button" aria-label="Abrir menu" aria-expanded="false">☰</button>
         </div>
-        <div class="flex items-center gap-2">
-            <button id="theme-toggle" class="icon-button" type="button" aria-label="Alternar tema">
-                <span class="dark:hidden">☾</span><span class="hidden dark:inline">☀</span>
-            </button>
-            <button id="menu-toggle" class="icon-button md:hidden" type="button" aria-label="Abrir menu" aria-expanded="false">☰</button>
-        </div>
-    </nav>
-    <div id="mobile-menu" class="mx-4 mb-3 hidden rounded-2xl border border-slate-200 bg-white p-3 shadow-xl dark:border-white/10 dark:bg-[#1b2933] md:hidden">
-        @foreach(['inicio'=>'Início','sobre'=>'Sobre','tecnologias'=>'Tecnologias','projetos'=>'Projetos','experiencia'=>'Experiência','contato'=>'Contato'] as $id => $label)
-            <a class="block rounded-lg px-3 py-2 text-sm hover:bg-slate-100 dark:hover:bg-white/5" href="#{{ $id }}">{{ $label }}</a>
-        @endforeach
     </div>
+    <nav id="mobile-menu" class="hidden border-t border-border bg-background md:hidden" aria-label="Navegação móvel">
+        <ul class="mx-auto flex max-w-6xl flex-col px-2 py-2">
+            @foreach($nav as $id=>$label)
+                <li><a class="block rounded-md px-3 py-3 text-sm text-muted-foreground transition hover:bg-secondary hover:text-foreground" href="#{{ $id }}">{{ $label }}</a></li>
+            @endforeach
+        </ul>
+    </nav>
 </header>
 
 <main>
-    <section id="inicio" class="relative flex min-h-screen items-center overflow-hidden pt-24">
-        <div class="hero-grid absolute inset-0 opacity-40" aria-hidden="true"></div>
-        <div class="mx-auto grid w-full max-w-6xl items-center gap-16 px-5 py-24 lg:grid-cols-[1.15fr_.85fr]">
-            <div class="relative z-10">
-                <p class="mb-5 text-sm font-semibold uppercase tracking-[.2em] text-teal-700 dark:text-teal-300">Portfólio pessoal</p>
-                <h1 class="max-w-3xl text-5xl font-bold leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl">{{ $profile->name }}</h1>
-                <p class="mt-7 max-w-2xl text-xl leading-relaxed text-slate-600 dark:text-slate-300">{{ $profile->tagline }}</p>
-                <div class="mt-10 flex flex-wrap gap-3">
-                    <a href="#projetos" class="button-primary">Ver projetos <span aria-hidden="true">→</span></a>
-                    <a href="#contato" class="button-secondary">Entrar em contato</a>
-                    <span class="button-disabled" aria-disabled="true" title="Currículo ainda não fornecido">Currículo em breve</span>
+    <section id="inicio" class="relative overflow-hidden" aria-labelledby="hero-title">
+        <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+            <div class="hero-glow-one absolute -right-24 -top-32 h-96 w-96 rounded-full blur-3xl"></div>
+            <div class="hero-glow-two absolute -left-24 top-40 h-72 w-72 rounded-full blur-3xl"></div>
+            <div class="hero-grid absolute inset-0 text-foreground"></div>
+        </div>
+        <div class="mx-auto grid max-w-6xl gap-10 px-4 pb-20 pt-16 sm:px-6 sm:pb-28 sm:pt-24 md:grid-cols-[1.2fr_1fr] md:items-center md:gap-12">
+            <div>
+                <p class="mb-4 inline-flex items-center gap-2 rounded-full border border-border bg-secondary px-3 py-1 text-xs font-medium text-muted-foreground">
+                    <span class="h-1.5 w-1.5 rounded-full bg-accent"></span>Portfólio pessoal
+                </p>
+                <h1 id="hero-title" class="text-4xl font-semibold tracking-tight text-foreground sm:text-5xl md:text-6xl">{{ $profile->name }}</h1>
+                <p class="mt-4 max-w-xl text-lg text-muted-foreground sm:text-xl">{{ $profile->tagline }}</p>
+                <p class="mt-4 max-w-xl text-sm text-muted-foreground sm:text-base">{{ $profile->about }}</p>
+                <div class="mt-8 flex flex-wrap gap-3">
+                    <a class="lov-button lov-button-lg lov-button-primary" href="#projetos">Ver projetos <span aria-hidden="true">→</span></a>
+                    <a class="lov-button lov-button-lg lov-button-outline" href="#contato">✉ <span>Entrar em contato</span></a>
+                    <span class="lov-button lov-button-lg lov-button-ghost opacity-50" aria-disabled="true">⇩ <span>Currículo em breve</span></span>
                 </div>
             </div>
-            <div class="relative mx-auto aspect-square w-full max-w-md" aria-hidden="true">
-                <div class="absolute inset-[8%] rotate-6 rounded-[3rem] border border-teal-700/20 bg-teal-700/5 dark:bg-teal-300/5"></div>
-                <div class="absolute inset-[20%] -rotate-6 rounded-[2.5rem] bg-[#183849] shadow-2xl dark:bg-[#234655]"></div>
-                <div class="absolute inset-[35%] grid place-items-center rounded-[2rem] bg-teal-700 text-5xl font-bold text-white shadow-xl">FZ</div>
-                <div class="absolute right-[8%] top-[16%] h-16 w-16 rounded-full bg-[#556b2f]/70"></div>
-                <div class="absolute bottom-[12%] left-[7%] h-10 w-10 rounded-xl bg-[#6d2948]/70"></div>
+            <div class="relative mx-auto hidden aspect-square w-full max-w-sm md:block" aria-hidden="true">
+                <div class="absolute inset-4 rounded-3xl border border-border bg-card shadow-sm"></div>
+                <div class="absolute inset-10 rounded-2xl border border-primary bg-background shadow-sm"></div>
+                <div class="hero-gradient absolute inset-x-14 top-14 h-24 rounded-xl"></div>
+                <div class="absolute bottom-10 left-14 right-24 h-3 rounded-full bg-muted"></div>
+                <div class="absolute bottom-16 left-14 right-40 h-3 rounded-full bg-muted"></div>
+                <div class="absolute bottom-6 right-10 h-16 w-16 rounded-full border border-accent bg-secondary"></div>
+                <div class="absolute right-8 top-8 grid grid-cols-3 gap-1.5">@for($i=0;$i<9;$i++)<span class="h-1.5 w-1.5 rounded-full bg-muted-foreground"></span>@endfor</div>
             </div>
         </div>
     </section>
 
-    <section id="sobre" class="section">
-        <div class="section-heading">
-            <p class="eyebrow">Sobre</p>
-            <h2>Clareza no código e atenção aos detalhes.</h2>
+    <section id="sobre" class="portfolio-section"><div class="section-wrap">
+        <div class="section-head"><p class="section-eyebrow">Sobre</p><h2 class="section-title">Um pouco sobre mim</h2><p class="section-description">Este é um espaço editável — atualize com o texto que representa você.</p></div>
+        <div class="grid gap-8 md:grid-cols-3">
+            <div class="md:col-span-2"><p class="text-lg leading-relaxed text-foreground">{{ $profile->about }}</p><p class="mt-4 text-base text-muted-foreground">Gosto de construir produtos com foco em clareza, boa arquitetura e experiência de uso. Curioso por natureza, aprendo continuamente e valorizo colaboração honesta.</p></div>
+            <aside class="lov-card p-6"><h3 class="text-sm font-semibold">Foco atual</h3><ul class="mt-3 space-y-2 text-sm text-muted-foreground"><li>• Aplicações web full-stack</li><li>• APIs robustas com Laravel</li><li>• Interfaces com Blade e Tailwind</li><li>• Boas práticas e acessibilidade</li></ul></aside>
         </div>
-        <div class="grid gap-6 lg:grid-cols-[1.3fr_.7fr]">
-            <article class="card p-8 text-lg leading-8 text-slate-600 dark:text-slate-300">{{ $profile->about }}</article>
-            <aside class="card grid gap-4 p-8">
-                <p class="text-sm uppercase tracking-wider text-slate-500">Princípios do projeto</p>
-                <p>Interfaces acessíveis</p><p>Arquitetura organizada</p><p>Experiência responsiva</p>
-            </aside>
-        </div>
-    </section>
+    </div></section>
 
-    <section id="tecnologias" class="section">
-        <div class="section-heading">
-            <p class="eyebrow">Tecnologias</p><h2>Ferramentas que compõem este modelo.</h2>
-        </div>
-        <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-            @forelse($skills as $skill)
-                <div class="card p-5">
-                    <p class="font-semibold">{{ $skill->name }}</p>
-                    <p class="mt-1 text-xs uppercase tracking-wider text-slate-500">{{ $skill->category }}</p>
-                </div>
-            @empty
-                <p class="text-slate-500">Execute <code>php artisan migrate --seed</code> para carregar as tecnologias.</p>
-            @endforelse
-        </div>
-    </section>
+    <section id="tecnologias" class="portfolio-section"><div class="section-wrap">
+        <div class="section-head"><p class="section-eyebrow">Tecnologias</p><h2 class="section-title">Stack de trabalho</h2><p class="section-description">Ferramentas com as quais tenho maior afinidade no dia a dia. Lista editável.</p></div>
+        <ul class="flex flex-wrap gap-2">@foreach($skills as $skill)<li class="lov-pill">{{ $skill->name }}</li>@endforeach</ul>
+    </div></section>
 
-    <section id="projetos" class="section">
-        <div class="section-heading">
-            <p class="eyebrow">Projetos</p><h2>Cases demonstrativos, prontos para receber trabalhos reais.</h2>
-        </div>
-        <div class="grid gap-5 lg:grid-cols-3">
-            @forelse($projects as $project)
-                <article class="card group overflow-hidden">
-                    <div class="project-visual"><span>{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</span></div>
-                    <div class="p-6">
-                        @if($project->is_demo)<span class="badge">Projeto demonstrativo</span>@endif
-                        <h3 class="mt-4 text-xl font-semibold">{{ $project->title }}</h3>
-                        <p class="mt-3 leading-7 text-slate-600 dark:text-slate-300">{{ $project->summary }}</p>
-                        <div class="mt-5 flex flex-wrap gap-2">
-                            @foreach($project->technologies as $technology)<span class="tag">{{ $technology }}</span>@endforeach
-                        </div>
-                        <p class="mt-6 text-sm text-slate-400">Demonstração e código em breve</p>
+    <section id="projetos" class="portfolio-section"><div class="section-wrap">
+        <div class="section-head"><p class="section-eyebrow">Projetos</p><h2 class="section-title">Trabalhos selecionados</h2><p class="section-description">Cases demonstrativos que ilustram tipos de projetos que gosto de construir.</p></div>
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            @foreach($projects as $project)
+                <article class="group flex flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
+                    <div class="project-visual relative h-40 w-full overflow-hidden">
+                        <div class="project-blob-one absolute -top-5 h-40 w-40 rounded-full blur-2xl" style="left:{{ ($loop->index * 47) % 180 }}px"></div>
+                        <div class="project-blob-two absolute -bottom-8 right-5 h-28 w-28 rounded-full blur-2xl"></div>
+                        <div class="absolute inset-0 grid place-items-center"><div class="grid grid-cols-4 gap-2">@for($i=0;$i<12;$i++)<span class="h-2 w-6 rounded-full bg-muted-foreground" style="opacity:{{ .25 + (($i+$loop->index)%7)/12 }}"></span>@endfor</div></div>
+                    </div>
+                    <div class="flex flex-1 flex-col p-5">
+                        <div class="mb-2 flex flex-wrap items-center gap-2"><h3 class="text-lg font-semibold">{{ $project->title }}</h3>@if($project->is_demo)<span class="rounded-md border border-border px-2 py-0.5 text-[10px] uppercase tracking-wider text-muted-foreground">Projeto demonstrativo</span>@endif</div>
+                        <p class="text-sm text-muted-foreground">{{ $project->summary }}</p>
+                        <ul class="mt-4 flex flex-wrap gap-1.5">@foreach($project->technologies as $technology)<li class="lov-tag">{{ $technology }}</li>@endforeach</ul>
+                        <div class="mt-5 flex gap-2 pt-2"><span class="lov-button lov-button-outline h-9 px-3 opacity-50">↗ Demo — Em breve</span><span class="lov-button lov-button-ghost h-9 px-3 opacity-50">&lt;/&gt; Código — Em breve</span></div>
                     </div>
                 </article>
-            @empty
-                <p class="text-slate-500">Nenhum projeto cadastrado.</p>
-            @endforelse
+            @endforeach
         </div>
-    </section>
+    </div></section>
 
-    <section id="experiencia" class="section">
-        <div class="section-heading">
-            <p class="eyebrow">Experiência</p><h2>Trajetória profissional.</h2>
-        </div>
+    <section id="experiencia" class="portfolio-section"><div class="section-wrap">
+        <div class="section-head"><p class="section-eyebrow">Experiência</p><h2 class="section-title">Trajetória profissional</h2></div>
         @forelse($experiences as $experience)
-            <article class="card mb-4 p-7">
-                <h3 class="font-semibold">{{ $experience->role }} · {{ $experience->company }}</h3>
-                <p class="mt-2 text-slate-500">{{ $experience->start_date->format('m/Y') }} — {{ $experience->end_date?->format('m/Y') ?? 'Atual' }}</p>
-                <p class="mt-4">{{ $experience->description }}</p>
-            </article>
+            <article class="relative mb-8 border-l border-border pl-6"><p class="text-xs uppercase tracking-wider text-muted-foreground">{{ $experience->start_date->format('m/Y') }} — {{ $experience->end_date?->format('m/Y') ?? 'Atual' }}</p><h3 class="mt-1 text-lg font-semibold">{{ $experience->role }} · <span class="text-primary">{{ $experience->company }}</span></h3><p class="mt-2 text-sm text-muted-foreground">{{ $experience->description }}</p></article>
         @empty
-            <div class="card border-dashed p-10 text-center">
-                <p class="text-lg font-medium">Adicione aqui sua trajetória profissional</p>
-                <p class="mt-2 text-slate-500">Nenhuma experiência fictícia foi incluída.</p>
-            </div>
+            <div class="rounded-2xl border border-dashed border-border bg-card p-10 text-center"><div class="mx-auto grid h-12 w-12 place-items-center rounded-full bg-secondary text-muted-foreground">✦</div><h3 class="mt-4 text-lg font-semibold">Sua história vai aqui</h3><p class="mx-auto mt-2 max-w-md text-sm text-muted-foreground">Adicione aqui sua trajetória profissional — cargos, empresas, períodos e principais entregas. Este texto é editável.</p></div>
         @endforelse
-    </section>
+    </div></section>
 
-    <section id="contato" class="section">
-        <div class="grid gap-10 lg:grid-cols-[.8fr_1.2fr]">
-            <div>
-                <p class="eyebrow">Contato</p>
-                <h2 class="text-3xl font-bold tracking-tight sm:text-4xl">Vamos conversar sobre sua próxima ideia.</h2>
-                <p class="mt-5 leading-7 text-slate-600 dark:text-slate-300">Preencha o formulário. A mensagem será registrada no sistema.</p>
-                <div class="mt-8 space-y-3 text-sm text-slate-500">
-                    <p>E-mail: {{ $profile->email ?: 'A adicionar' }}</p>
-                    <p>GitHub: {{ $profile->github ?: 'A adicionar' }}</p>
-                    <p>LinkedIn: {{ $profile->linkedin ?: 'A adicionar' }}</p>
-                </div>
-            </div>
-            <form action="{{ route('contact.store') }}" method="post" class="card grid gap-5 p-7">
-                @csrf
-                <div class="hidden" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div>
-                @if(session('success'))<div class="rounded-xl bg-emerald-100 p-4 text-emerald-900" role="status">{{ session('success') }}</div>@endif
-                @if($errors->any())<div class="rounded-xl bg-red-100 p-4 text-red-900" role="alert">Revise os campos destacados.</div>@endif
-                <div class="grid gap-5 sm:grid-cols-2">
-                    <label>Nome<input class="input" name="name" value="{{ old('name') }}" required maxlength="120">@error('name')<span class="error">{{ $message }}</span>@enderror</label>
-                    <label>E-mail<input class="input" type="email" name="email" value="{{ old('email') }}" required maxlength="255">@error('email')<span class="error">{{ $message }}</span>@enderror</label>
-                </div>
-                <label>Assunto<input class="input" name="subject" value="{{ old('subject') }}" required maxlength="180">@error('subject')<span class="error">{{ $message }}</span>@enderror</label>
-                <label>Mensagem<textarea class="input min-h-36 resize-y" name="message" required minlength="10" maxlength="5000">{{ old('message') }}</textarea>@error('message')<span class="error">{{ $message }}</span>@enderror</label>
-                <button class="button-primary justify-center" type="submit">Registrar mensagem</button>
+    <section id="contato" class="portfolio-section"><div class="section-wrap">
+        <div class="section-head"><p class="section-eyebrow">Contato</p><h2 class="section-title">Vamos conversar</h2><p class="section-description">Envie uma mensagem ou use os canais abaixo. Espaços editáveis — nenhum link é inventado.</p></div>
+        <div class="grid gap-8 md:grid-cols-[1fr_1.2fr]">
+            <aside class="space-y-3">
+                @foreach([['✉','E-mail',$profile->email ?: 'Adicione seu e-mail'],['⌘','GitHub',$profile->github ?: 'Adicione seu perfil'],['in','LinkedIn',$profile->linkedin ?: 'Adicione seu perfil']] as [$icon,$label,$value])
+                    <div class="flex items-center gap-3 rounded-xl border border-border bg-card p-4 text-sm shadow-sm"><span class="grid h-9 w-9 place-items-center rounded-lg bg-secondary">{{ $icon }}</span><span><span class="block text-xs uppercase tracking-wider text-muted-foreground">{{ $label }}</span><span class="block text-foreground">{{ $value }}</span></span></div>
+                @endforeach
+            </aside>
+            <form action="{{ route('contact.store') }}" method="post" class="lov-card p-6">@csrf
+                <input class="hidden" name="website" tabindex="-1" autocomplete="off">
+                @if(session('success'))<p class="mb-4 rounded-md bg-secondary p-3 text-sm">{{ session('success') }}</p>@endif
+                <div class="grid gap-4 sm:grid-cols-2"><label class="text-sm">Nome<input class="lov-input" name="name" value="{{ old('name') }}" required></label><label class="text-sm">E-mail<input class="lov-input" type="email" name="email" value="{{ old('email') }}" required></label></div>
+                <label class="mt-4 block text-sm">Assunto<input class="lov-input" name="subject" value="{{ old('subject') }}" required></label>
+                <label class="mt-4 block text-sm">Mensagem<textarea class="lov-input min-h-32 resize-y" name="message" required>{{ old('message') }}</textarea></label>
+                @if($errors->any())<p class="mt-3 text-xs text-destructive">Revise os campos e tente novamente.</p>@endif
+                <div class="mt-6 flex items-center justify-between gap-4"><p class="text-xs text-muted-foreground">A mensagem será registrada no sistema.</p><button class="lov-button lov-button-primary" type="submit">➤ Enviar mensagem</button></div>
             </form>
         </div>
-    </section>
+    </div></section>
 </main>
 
-<footer class="border-t border-slate-200 py-8 dark:border-white/10">
-    <div class="mx-auto flex max-w-6xl flex-col justify-between gap-2 px-5 text-sm text-slate-500 sm:flex-row">
-        <p>© {{ now()->year }} {{ $profile->name }}.</p><p>Feito com atenção aos detalhes.</p>
-    </div>
-</footer>
+<footer class="border-t border-border py-8"><div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-4 text-sm text-muted-foreground sm:flex-row sm:px-6"><p>© {{ now()->year }} {{ $profile->name }}. Todos os direitos reservados.</p><p class="text-xs">Feito com atenção aos detalhes.</p></div></footer>
 @endsection
