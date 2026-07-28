@@ -8,8 +8,8 @@ class Experience extends Model
 {
     protected $fillable = ['role', 'company', 'start_date', 'end_date', 'description', 'sort_order'];
 
-    protected function casts(): array
-    {
-        return ['start_date' => 'date', 'end_date' => 'date'];
-    }
+    protected $casts = [
+        'start_date' => 'date',
+        'end_date' => 'date',
+    ];
 }
