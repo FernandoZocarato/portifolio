@@ -1,4 +1,19 @@
 import './bootstrap';
+import {
+    createIcons,
+    ArrowRight,
+    BriefcaseBusiness,
+    Code2,
+    Download,
+    ExternalLink,
+    Mail,
+    Menu,
+    Moon,
+    Send,
+    Sparkles,
+    Sun,
+    X,
+} from 'lucide';
 
 const root = document.documentElement;
 const themeButton = document.querySelector('#theme-toggle');
@@ -16,6 +31,8 @@ themeButton?.addEventListener('click', () => {
 menuButton?.addEventListener('click', () => {
     const open = mobileMenu.classList.toggle('hidden') === false;
     menuButton.setAttribute('aria-expanded', String(open));
+    document.querySelector('#menu-icon')?.classList.toggle('hidden', open);
+    document.querySelector('#close-icon')?.classList.toggle('hidden', !open);
 });
 
 mobileMenu?.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
@@ -32,3 +49,23 @@ const observer = new IntersectionObserver(entries => {
 
 document.querySelectorAll('main section[id]').forEach(section => observer.observe(section));
 addEventListener('scroll', () => header?.classList.toggle('header-scrolled', scrollY > 8), { passive: true });
+
+createIcons({
+    icons: {
+        ArrowRight,
+        BriefcaseBusiness,
+        Code2,
+        Download,
+        ExternalLink,
+        Mail,
+        Menu,
+        Moon,
+        Send,
+        Sparkles,
+        Sun,
+        X,
+    },
+    attrs: {
+        'stroke-width': 2,
+    },
+});
