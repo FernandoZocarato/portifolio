@@ -14,7 +14,7 @@ Aplicação Laravel 10 compatível com PHP 8.1. O frontend foi reconstruído em 
 
 ## Instalação
 
-Requisitos: PHP 8.1 ou superior, Composer 2, Node.js 18+ e MySQL 8 (ou SQLite).
+Requisitos: PHP 8.1 ou superior, Composer 2 e Node.js 18+. O projeto usa SQLite por padrão, armazenado em `database/database.sqlite`.
 
 ```bash
 cp .env.example .env
@@ -34,20 +34,15 @@ Para desenvolvimento dos assets:
 npm run dev
 ```
 
-## SQLite
+## Banco de dados
 
-Para experimentar sem MySQL:
-
-```bash
-touch database/database.sqlite
-```
-
-No `.env`:
+SQLite é o padrão e mantém o banco dentro do próprio projeto. A configuração esperada no `.env` é:
 
 ```env
 DB_CONNECTION=sqlite
-DB_DATABASE=/caminho/absoluto/database/database.sqlite
 ```
+
+Não é necessário definir `DB_DATABASE`; o Laravel usará `database/database.sqlite`.
 
 ## Testes
 
