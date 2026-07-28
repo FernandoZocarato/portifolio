@@ -1,6 +1,6 @@
 # Portfólio — Fernando Zocarato
 
-Aplicação Laravel 11 unificada. O frontend foi reconstruído em Blade + Tailwind CSS, sem React/TanStack, mantendo a identidade visual criada no Lovable.
+Aplicação Laravel 10 compatível com PHP 8.1. O frontend foi reconstruído em Blade + Tailwind CSS, sem React/TanStack, mantendo a identidade visual criada no Lovable.
 
 ## Recursos
 
@@ -13,6 +13,8 @@ Aplicação Laravel 11 unificada. O frontend foi reconstruído em Blade + Tailwi
 - Testes Feature
 
 ## Instalação
+
+Requisitos: PHP 8.1 ou superior, Composer 2, Node.js 18+ e MySQL 8 (ou SQLite).
 
 ```bash
 cp .env.example .env
