@@ -31,4 +31,4 @@ const observer = new IntersectionObserver(entries => {
 }, { rootMargin: '-30% 0px -60% 0px' });
 
 document.querySelectorAll('main section[id]').forEach(section => observer.observe(section));
-addEventListener('scroll', () => header?.classList.toggle('scrolled', scrollY > 8), { passive: true });
+addEventListener('scroll', () => header?.classList.toggle('header-scrolled', scrollY > 8), { passive: true });
