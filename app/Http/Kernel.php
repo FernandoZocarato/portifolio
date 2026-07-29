@@ -31,6 +31,7 @@ class Kernel extends HttpKernel
 
     protected $middlewareAliases = [
         'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
+        'admin' => \App\Http\Middleware\EnsureAdminIsAuthenticated::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
