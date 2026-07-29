@@ -22,6 +22,10 @@ class RouteServiceProvider extends ServiceProvider
             Limit::perMinute((int) env('CONTACT_RATE_LIMIT', 5))->by($request->ip())
         );
 
+        RateLimiter::for('admin-login', fn (Request $request) =>
+            Limit::perMinute(5)->by(strtolower((string) $request->input('email')).'|'.$request->ip())
+        );
+
         $this->routes(function (): void {
             Route::middleware('api')
                 ->prefix('api')
