@@ -93,7 +93,10 @@
                         <div class="mb-2 flex flex-wrap items-center gap-2"><h3 class="text-lg font-semibold">{{ $project->title }}</h3>@if($project->is_demo)<span class="rounded-md border border-border px-2 py-0.5 text-[10px] uppercase tracking-wider text-muted-foreground">Projeto demonstrativo</span>@endif</div>
                         <p class="text-sm text-muted-foreground">{{ $project->summary }}</p>
                         <ul class="mt-4 flex flex-wrap gap-1.5">@foreach($project->technologies as $technology)<li class="lov-tag">{{ $technology }}</li>@endforeach</ul>
-                        <div class="mt-5 flex flex-nowrap items-center gap-1.5 pt-2"><span class="lov-button lov-button-outline h-9 shrink-0 gap-1.5 px-2.5 text-xs opacity-50"><i data-lucide="external-link" class="h-3.5 w-3.5"></i>Demo — Em breve</span><span class="lov-button lov-button-ghost h-9 shrink-0 gap-1.5 px-2.5 text-xs opacity-50"><i data-lucide="code-2" class="h-3.5 w-3.5"></i>Código — Em breve</span></div>
+                        <div class="mt-5 flex flex-nowrap items-center gap-1.5 pt-2">
+                            @if($project->demo_url)<a class="lov-button lov-button-outline h-9 shrink-0 gap-1.5 px-2.5 text-xs" href="{{ $project->demo_url }}" target="_blank" rel="noopener noreferrer"><i data-lucide="external-link" class="h-3.5 w-3.5"></i>Ver demo</a>@else<span class="lov-button lov-button-outline h-9 shrink-0 gap-1.5 px-2.5 text-xs opacity-50"><i data-lucide="external-link" class="h-3.5 w-3.5"></i>Demo — Em breve</span>@endif
+                            @if($project->code_url)<a class="lov-button lov-button-ghost h-9 shrink-0 gap-1.5 px-2.5 text-xs" href="{{ $project->code_url }}" target="_blank" rel="noopener noreferrer"><i data-lucide="code-2" class="h-3.5 w-3.5"></i>Ver código</a>@else<span class="lov-button lov-button-ghost h-9 shrink-0 gap-1.5 px-2.5 text-xs opacity-50"><i data-lucide="code-2" class="h-3.5 w-3.5"></i>Código — Em breve</span>@endif
+                        </div>
                     </div>
                 </article>
             @endforeach
@@ -113,8 +116,10 @@
         <div class="section-head"><p class="section-eyebrow">Contato</p><h2 class="section-title">Vamos conversar</h2><p class="section-description">Envie uma mensagem ou use os canais abaixo. Espaços editáveis — nenhum link é inventado.</p></div>
         <div class="grid gap-8 md:grid-cols-[1fr_1.2fr]">
             <aside class="space-y-3">
-                @foreach([['mail','E-mail',$profile->email ?: 'Adicione seu e-mail'],['code-2','GitHub',$profile->github ?: 'Adicione seu perfil'],['briefcase-business','LinkedIn',$profile->linkedin ?: 'Adicione seu perfil']] as [$icon,$label,$value])
-                    <div class="flex items-center gap-3 rounded-xl border border-border bg-card p-4 text-sm shadow-sm"><span class="grid h-9 w-9 place-items-center rounded-lg bg-secondary"><i data-lucide="{{ $icon }}" class="h-4 w-4"></i></span><span><span class="block text-xs uppercase tracking-wider text-muted-foreground">{{ $label }}</span><span class="block text-foreground">{{ $value }}</span></span></div>
+                @foreach([['mail','E-mail',$profile->email ?: 'Adicione seu e-mail',$profile->email ? 'mailto:'.$profile->email : null],['code-2','GitHub',$profile->github ?: 'Adicione seu perfil',$profile->github],['briefcase-business','LinkedIn',$profile->linkedin ?: 'Adicione seu perfil',$profile->linkedin]] as [$icon,$label,$value,$url])
+                    @if($url)<a class="flex items-center gap-3 rounded-xl border border-border bg-card p-4 text-sm shadow-sm transition hover:-translate-y-0.5 hover:shadow-md" href="{{ $url }}" @if($label !== 'E-mail') target="_blank" rel="noopener noreferrer" @endif>@else<div class="flex items-center gap-3 rounded-xl border border-border bg-card p-4 text-sm shadow-sm">@endif
+                        <span class="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-secondary"><i data-lucide="{{ $icon }}" class="h-4 w-4"></i></span><span class="min-w-0"><span class="block text-xs uppercase tracking-wider text-muted-foreground">{{ $label }}</span><span class="block truncate text-foreground">{{ $value }}</span></span>
+                    @if($url)</a>@else</div>@endif
                 @endforeach
             </aside>
             <form action="{{ route('contact.store') }}" method="post" class="lov-card p-6">@csrf
